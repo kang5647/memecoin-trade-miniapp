@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ethers, providers  } from 'ethers'
+import {  BrowserProvider  } from 'ethers'
 import { Widget } from '@kyberswap/widgets'
-import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers5/react'
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
 
 const tokenList = [
   {
@@ -23,14 +23,12 @@ const defaultTokenOut = "0xB1a03EdA10342529bBF8EB700a06C60441fEf25d"
 function SwapWidget() {
   const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
-  const [provider, setProvider] = useState<providers.Web3Provider | null>(null)
 
+  let provider = null
   useEffect(() => {
     if (isConnected && walletProvider) {
-      const newProvider = new providers.Web3Provider(walletProvider as providers.ExternalProvider)
-      setProvider(newProvider)
+      provider = new BrowserProvider(walletProvider)
     } else {
-      setProvider(null)
     }
   }, [isConnected, walletProvider])
 
@@ -38,7 +36,7 @@ function SwapWidget() {
     return <div>Please connect your wallet</div>
   }
 
-  if (!provider) {
+  if (!walletProvider) {
     return <div>Loading...</div>
   }
 

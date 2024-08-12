@@ -1,6 +1,6 @@
 'use client'
 
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react'
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
 import { ReactNode } from 'react'
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
@@ -32,11 +32,12 @@ const metadata = {
 const ethersConfig = defaultConfig({
   /*Required*/
   metadata,
-
-  /*Optional*/
-  enableEIP6963: true, // true by default
-  enableInjected: true, // true by default
-  enableCoinbase: true, // true by default
+  auth: {
+    email: true, // default to true
+    socials: ['google', 'x', 'github', 'discord', 'apple', 'facebook', 'farcaster'],
+    showWallets: true, // default to true
+    walletFeatures: true // default to true
+  },
   rpcUrl: '...', // used for the Coinbase SDK
   defaultChainId: 1 // used for the Coinbase SDK
 })
@@ -49,7 +50,8 @@ createWeb3Modal({
   enableAnalytics: true, 
   themeVariables: {
     '--w3m-accent': '#000000',
-  }
+  },
+  enableOnramp: true,
 })
 
 
