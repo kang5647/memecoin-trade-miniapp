@@ -14,8 +14,12 @@ const tokenList = [
     "chainId": 8453,
     "logoURI" :""
 
-  }
+  }, 
+  
 ]
+
+const defaultTokenOut = "0xB1a03EdA10342529bBF8EB700a06C60441fEf25d"
+
 function SwapWidget() {
   const { address, chainId, isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
@@ -46,6 +50,7 @@ function SwapWidget() {
         title={<div>Swap Memecoin</div>}
         width={300}
         tokenList={tokenList}
+        defaultTokenOut= {defaultTokenOut}
       />
   )
 }

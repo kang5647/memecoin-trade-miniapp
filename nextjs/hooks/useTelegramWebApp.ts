@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
-import { TelegramWebApp } from "../types/telegram-webapp";
+import { TelegramWebApp } from '../types/telegram-webapp';
 
-export function useTelegramWebApp() {
-    const [webApp, setWebApp] = useState < TelegramWebApp | null > (null);
+export const useTelegramWebApp = () => {
+  const [webApp, setWebApp] = useState<TelegramWebApp | null>(null);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            setWebApp(window.Telegram.WebApp);
-        }
-    }, []);
+  useEffect(() => {
+    const initTelegramWebApp = () => {
+      if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
+        setWebApp(window.Telegram.WebApp);
+      } else {
+        setTimeout(initTelegramWebApp, 100);
+      }
+    };
 
-    return webApp;
-}
+    initTelegramWebApp();
+  }, []);
+
+  return webApp;
+};
