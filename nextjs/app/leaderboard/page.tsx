@@ -4,6 +4,8 @@ import React from 'react';
 import { useTelegramWebApp } from '../../hooks/useTelegramWebApp';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const truncateAddress = (address: string) => {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
@@ -19,6 +21,15 @@ const mockTraders = [
 
 export default function LeaderboardPage() {
   const webApp = useTelegramWebApp();
+  const searchParams = useSearchParams()
+  const [contractAddress, setContractAddress] = useState('')
+
+  useEffect(() => {
+    const address = searchParams.get('contractAddress')
+    if (address) {
+      setContractAddress(address)
+    }
+  }, [searchParams])
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
@@ -31,6 +42,11 @@ export default function LeaderboardPage() {
             Hello, {webApp.initDataUnsafe.user.first_name}!
           </p>
         )}
+        {contractAddress && (
+            <p className="text-center mb-4 text-white">
+              Contract Address: {contractAddress}
+            </p>
+          )}
         <h1 className="text-2xl font-bold mb-4 mt-8 text-center text-white">Memecoin Traders Leaderboard</h1>
         <div className="space-y-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm rounded-lg p-4">
           {mockTraders.map((trader) => (
