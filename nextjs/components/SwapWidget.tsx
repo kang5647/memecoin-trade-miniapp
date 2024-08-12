@@ -1,39 +1,5 @@
 'use client'
 
-// import { Widget } from '@kyberswap/widgets'
-// import {  useEthersProvider } from '@/provider'
-// import { config } from '@/config'
-// import { useState, useEffect } from 'react'
-// import { useEthersSigner } from '@/signer'
-
-// export default function SwapWidget() {
-  
-//   // const [provider, setProvider] = useState<providers.Provider | undefined>(undefined);
-
-//   // useEffect(() => {
-//   //   // Assuming you have a config object and possibly a chainId
-//   //   const ethersProvider = getEthersProvider(config, { chainId: 1 }); // Example chainId: 1 for Ethereum mainnet
-//   //   setProvider(ethersProvider);
-//   // }, []);
-
-//   // if (!provider) {
-//   //   return <div>Loading...</div>;
-//   // }
-//   const provider = useEthersProvider();
-
-//   return (
-//     <Widget
-//       client="Memecoin Fiesta"
-//       enableDexes="kyberswap-elastic,uniswapv3,uniswap"
-//       provider={provider}
-//       title={<div>Swap Memecoin</div>}
-//       width={360}
-//     />
-//   );
-// }
-
-// File: components/SwapWidget.tsx
-
 import { useState, useEffect } from 'react'
 import { ethers, providers  } from 'ethers'
 import { Widget } from '@kyberswap/widgets'
@@ -78,7 +44,7 @@ function SwapWidget() {
         enableDexes="kyberswap-elastic,uniswapv3,uniswap"
         provider={provider}
         title={<div>Swap Memecoin</div>}
-        width={360}
+        width={300}
         tokenList={tokenList}
       />
   )
