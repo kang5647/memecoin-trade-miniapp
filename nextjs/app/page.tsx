@@ -12,8 +12,6 @@ export default function Home() {
       // You can access Telegram WebApp parameters here
       console.log('Telegram WebApp parameters:', webApp.initData);
       
-      // Notify Telegram that the Mini App is ready
-      webApp.ready();
     }
   }, [webApp]);
 

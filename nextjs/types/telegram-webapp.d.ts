@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-interface TelegramWebApp {
+export interface TelegramWebApp {
   initData: string;
   initDataUnsafe: {
     query_id: string;
@@ -40,4 +40,3 @@ interface TelegramWebApp {
   // Add other methods and properties as needed
 }
 
-export {};
