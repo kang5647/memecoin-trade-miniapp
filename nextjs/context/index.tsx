@@ -46,7 +46,10 @@ createWeb3Modal({
   ethersConfig,
   chains: [mainnet, base],
   projectId,
-  enableAnalytics: true // Optional - defaults to your Cloud configuration
+  enableAnalytics: true, 
+  themeVariables: {
+    '--w3m-accent': '#000000',
+  }
 })
 
 
