@@ -14,9 +14,11 @@
     "@web3modal/wagmi": "^5.0.11",
     "encoding": "^0.1.13",
     "ethers": "^6.13.2",
+    "lucide-react": "^0.427.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "save": "^2.9.0",
     "viem": "^2.19.3",
     "wagmi": "^2.12.5"
   },

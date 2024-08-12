@@ -25,7 +25,7 @@ export default function Home() {
     <AppKit>
       <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
         <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 relative">
-          <Link href="/leaderboard" className="absolute top-4 right-4 bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors">
+          <Link  href={`/leaderboard?contractAddress=${contractAddress}`}  className="absolute top-4 right-4 bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors">
             Leaderboard
           </Link>
           {webApp?.initDataUnsafe.user && (
