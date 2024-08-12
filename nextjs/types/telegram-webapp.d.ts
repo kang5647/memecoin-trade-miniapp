@@ -11,6 +11,7 @@ declare global {
 export interface TelegramWebApp {
   initData: string;
   initDataUnsafe: {
+    start_param: string;
     query_id: string;
     user?: {
       id: number;

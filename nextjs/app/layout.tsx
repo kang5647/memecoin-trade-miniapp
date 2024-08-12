@@ -4,6 +4,7 @@ import './globals.css'
 
 import { AppKit } from '../context'
 import { ScriptsBlock } from '../components/ScriptsBlock'
+
 export const metadata = {
   title: 'Memecoin Fiesta',
 }
@@ -14,7 +15,7 @@ export default function RootLayout({ children } : { children: React.ReactNode })
       <body>
         <AppKit>
           <ScriptsBlock />
-          {children}
+            {children}
         </AppKit>
       </body>
     </html>
