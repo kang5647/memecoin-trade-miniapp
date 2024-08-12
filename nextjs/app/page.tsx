@@ -1,36 +1,32 @@
 'use client'
 
-import  SwapWidget  from '../components/SwapWidget'
-import {AppKit} from '../context'
-import { useEffect } from 'react';
+import SwapWidget from '../components/SwapWidget'
+import { AppKit } from '../context'
+import { useEffect } from 'react'
 import { useTelegramWebApp } from "../hooks/useTelegramWebApp"
+
 export default function Home() {
+  const webApp = useTelegramWebApp()
   
-  const webApp = useTelegramWebApp();
   useEffect(() => {
     if (webApp) {
-      // You can access Telegram WebApp parameters here
-      console.log('Telegram WebApp parameters:', webApp.initData);
-      
+      console.log('Telegram WebApp parameters:', webApp.initData)
     }
-  }, [webApp]);
+  }, [webApp])
 
   return (
     <AppKit>
-      <main className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex flex-col items-center justify-center p-4">
-        <div className="bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm rounded-3xl shadow-lg p-8 max-w-md w-full">
-          <h1 className="text-4xl font-bold text-center text-indigo-700 mb-8">
-            Welcome to Memecoin Fiesta
-          </h1>
-           {webApp?.initDataUnsafe.user && (
-            <p className="text-center mb-4">
+      <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-indigo-500 to-purple-600">
+        <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
+          {webApp?.initDataUnsafe.user && (
+            <p className="text-center mb-4 text-gray-700">
               Hello, {webApp.initDataUnsafe.user.first_name}!
             </p>
           )}
           <div className="mb-6 flex justify-center">
             <w3m-button />
           </div>
-          <div className="bg-white rounded-2xl shadow-md p-4">
+          <div className="flex justify-center">
             <SwapWidget />
           </div>
         </div>
