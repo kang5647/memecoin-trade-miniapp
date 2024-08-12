@@ -21,7 +21,7 @@ export default function Home() {
       <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
         <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6">
            {webApp?.initDataUnsafe.user && (
-            <p className="text-center mb-4 text-gray-700">
+            <p className="text-center mb-4 text-white">
               Hello, {webApp.initDataUnsafe.user.first_name}!
             </p>
           )}
