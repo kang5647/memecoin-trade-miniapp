@@ -20,7 +20,7 @@ const mockTraders = [
 
 function LeaderboardContent() {
   const searchParams = useSearchParams();
-  const symbol = searchParams.get('symbol');
+  const symbol = searchParams?.get('symbol') || null;
 
   return (
     <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 relative">
