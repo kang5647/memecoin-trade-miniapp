@@ -87,15 +87,13 @@ async def tokeninfo(update: Update, context: CallbackContext) -> None:
         response = (
             f"🪙 <b>{token_info['name']}</b> ({token_info['symbol']}):\n\n"
             f"💰 USD: ${token_info['current_price']:.6f}\n"
-            f"24h Change: {token_info['price_change_24h']:.2f}%\n"
-            f"Market Cap: ${token_info['market_cap']:,.0f}\n"
+            f"🔻 24h Change: {token_info['price_change_24h']:.2f}%\n"
+            f"💹 Market Cap: ${token_info['market_cap']:,.0f}\n"
             f"💎 FDV: ${token_info['fully_diluted_valuation']:,.0f}\n\n"
-            f"📈 Supply:\n"
-            f"Circulating: {token_info['circulating_supply']:,.0f}\n"
-            f"Total: {token_info['total_supply']:,.0f}\n\n"
-            f"👥 Community:\n"
-            f"Holders: {token_info['holders']:,}\n"
-            f"Transactions: {token_info['transactions']:,}\n\n"
+            f"💸 Circulating: {token_info['circulating_supply']:,.0f}\n"
+            f"🎯 Total: {token_info['total_supply']:,.0f}\n\n"
+            f"👫 Holders: {token_info['holders']:,}\n"
+            f"🔄 Transactions: {token_info['transactions']:,}\n\n"
             f"<code>{token_info['contract']}</code>\n"
         )
 
