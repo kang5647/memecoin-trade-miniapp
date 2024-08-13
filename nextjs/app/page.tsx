@@ -29,7 +29,7 @@ export default function Home() {
   }, [webApp]);
 
   const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
-    const apiUrl = `/api/dextool-proxy?chain=${chain}&address=${address}`;
+    const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
 
     try {
       const response = await fetch(apiUrl);
