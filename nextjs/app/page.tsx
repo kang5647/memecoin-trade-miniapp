@@ -29,13 +29,14 @@ export default function Home() {
   }, [webApp]);
 
   const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
-    const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
+    const apiUrl = `/api/dextool-proxy?chain=${chain}&address=${address}`;
 
     try {
       const response = await fetch(apiUrl);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.error}`);
       }
 
       const data = await response.json();
