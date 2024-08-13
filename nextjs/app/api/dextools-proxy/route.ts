@@ -5,7 +5,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const chain = searchParams.get('chain')
   const address = searchParams.get('address')
-  const apiKey = process.env.DEXTOOLS_API_KEY
+  const apiKey = process.env.NEXT_PUBLIC_DEXTOOLS_API_KEY
 
   if (!chain || !address) {
     return NextResponse.json({ error: 'Missing chain or address parameter' }, { status: 400 })
