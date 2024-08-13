@@ -27,7 +27,7 @@ function LeaderboardContent() {
       <Link href="/" className="absolute top-2 right-2 bg-white text-indigo-600 text-sm font-bold py-1 px-2 rounded hover:bg-indigo-100 transition-colors">
         Home
       </Link>
-      <h1 className="text-2xl font-bold mb-4 mt-8 text-center text-white">Who traded {symbol ? `${symbol}` : ''}?</h1>
+      <h1 className="text-2xl font-bold mb-4 mt-8 text-center text-white">Who traded ${symbol ? `${symbol}` : ''}?</h1>
       <div className="space-y-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm rounded-lg p-4">
         {mockTraders.map((trader) => (
           <div key={trader.address} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
