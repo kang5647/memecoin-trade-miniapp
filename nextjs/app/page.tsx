@@ -11,23 +11,23 @@ export default function Home() {
   const webApp = useTelegramWebApp();
   const [token, setToken] = useState<Token | null>(null);
 
-   useEffect(() => {
-    const fetchToken = async () => {
-      if (webApp) {
-        console.log('Telegram WebApp parameters:', webApp.initData);
+  //  useEffect(() => {
+  //   const fetchToken = async () => {
+  //     if (webApp) {
+  //       console.log('Telegram WebApp parameters:', webApp.initData);
         
-        // Extract the start_param (contract address) from initDataUnsafe
-        if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
-          const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
-          console.log('Contract address:', contractAddress, 'Chain:', chain);
-          const newToken = await fetchTokenInfo(chain, contractAddress);
-          console.log('Token info:', newToken);
-          setToken(newToken);
-        }
-      }
-    };
-    fetchToken();
-  }, [webApp]);
+  //       // Extract the start_param (contract address) from initDataUnsafe
+  //       if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
+  //         const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
+  //         console.log('Contract address:', contractAddress, 'Chain:', chain);
+  //         const newToken = await fetchTokenInfo(chain, contractAddress);
+  //         console.log('Token info:', newToken);
+  //         setToken(newToken);
+  //       }
+  //     }
+  //   };
+  //   fetchToken();
+  // }, [webApp]);
 
    useEffect(() => {
     const testFetchToken = async () => {
