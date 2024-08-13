@@ -11,40 +11,40 @@ export default function Home() {
   const webApp = useTelegramWebApp();
   const [token, setToken] = useState<Token | null>(null);
 
-  //  useEffect(() => {
-  //   const fetchToken = async () => {
-  //     if (webApp) {
-  //       console.log('Telegram WebApp parameters:', webApp.initData);
-        
-  //       // Extract the start_param (contract address) from initDataUnsafe
-  //       if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
-  //         const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
-  //         console.log('Contract address:', contractAddress, 'Chain:', chain);
-  //         const newToken = await fetchTokenInfo(chain, contractAddress);
-  //         console.log('Token info:', newToken);
-  //         setToken(newToken);
-  //       }
-  //     }
-  //   };
-  //   fetchToken();
-  // }, [webApp]);
-
    useEffect(() => {
-    const testFetchToken = async () => {
-      // Test values - replace with actual values you want to test
-      const testChain = 'base';
-      const testAddress = '0xb1a03eda10342529bbf8eb700a06c60441fef25d'; 
-
-      console.log('Testing fetchTokenInfo with:', testChain, testAddress);
-      const testToken = await fetchTokenInfo(testChain, testAddress);
-      console.log('Test token info:', testToken);
-
-      // Optionally set the token state if you want to see it in the UI
-       setToken(testToken);
+    const fetchToken = async () => {
+      if (webApp) {
+        console.log('Telegram WebApp parameters:', webApp.initData);
+        
+        // Extract the start_param (contract address) from initDataUnsafe
+        if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
+          const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
+          console.log('Contract address:', contractAddress, 'Chain:', chain);
+          const newToken = await fetchTokenInfo(chain, contractAddress);
+          console.log('Token info:', newToken);
+          setToken(newToken);
+        }
+      }
     };
+    fetchToken();
+  }, [webApp]);
 
-    testFetchToken();
-  }, []); // Empty dependency array means this runs once on component mount
+  //  useEffect(() => {
+  //   const testFetchToken = async () => {
+  //     // Test values - replace with actual values you want to test
+  //     const testChain = 'base';
+  //     const testAddress = '0xb1a03eda10342529bbf8eb700a06c60441fef25d'; 
+
+  //     console.log('Testing fetchTokenInfo with:', testChain, testAddress);
+  //     const testToken = await fetchTokenInfo(testChain, testAddress);
+  //     console.log('Test token info:', testToken);
+
+  //     // Optionally set the token state if you want to see it in the UI
+  //      setToken(testToken);
+  //   };
+
+  //   testFetchToken();
+  // }, []); // Empty dependency array means this runs once on component mount
 
   const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
     const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
