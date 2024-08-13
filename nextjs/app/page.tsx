@@ -29,6 +29,23 @@ export default function Home() {
     fetchToken();
   }, [webApp]);
 
+   useEffect(() => {
+    const testFetchToken = async () => {
+      // Test values - replace with actual values you want to test
+      const testChain = 'base';
+      const testAddress = '0xb1a03eda10342529bbf8eb700a06c60441fef25d'; 
+
+      console.log('Testing fetchTokenInfo with:', testChain, testAddress);
+      const testToken = await fetchTokenInfo(testChain, testAddress);
+      console.log('Test token info:', testToken);
+
+      // Optionally set the token state if you want to see it in the UI
+      // setToken(testToken);
+    };
+
+    testFetchToken();
+  }, []); // Empty dependency array means this runs once on component mount
+
 
   const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
     const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
