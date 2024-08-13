@@ -85,20 +85,18 @@ async def tokeninfo(update: Update, context: CallbackContext) -> None:
         if not token_info:
             await update.message.reply_text("Cannot fetch token information.")
         response = (
-            f"🪙 Token Information for {token_info['name']} ({token_info['symbol']}):\n\n"
-            f"📊 Basic Info:\n"
-            f"   Contract: {token_info['contract']}\n\n"
-            f"💰 Market Data:\n"
-            f"   Current Price: ${token_info['current_price']:.6f}\n"
-            f"   24h Change: {token_info['price_change_24h']:.2f}%\n"
-            f"   Market Cap: ${token_info['market_cap']:,.0f}\n"
-            f"   Fully Diluted Valuation: ${token_info['fully_diluted_valuation']:,.0f}\n\n"
+            f"🪙 <b>{token_info['name']}</b> ({token_info['symbol']}):\n\n"
+            f"💰 USD: ${token_info['current_price']:.6f}\n"
+            f"24h Change: {token_info['price_change_24h']:.2f}%\n"
+            f"Market Cap: ${token_info['market_cap']:,.0f}\n"
+            f"💎 FDV: ${token_info['fully_diluted_valuation']:,.0f}\n\n"
             f"📈 Supply:\n"
-            f"   Circulating: {token_info['circulating_supply']:,.0f}\n"
-            f"   Total: {token_info['total_supply']:,.0f}\n\n"
+            f"Circulating: {token_info['circulating_supply']:,.0f}\n"
+            f"Total: {token_info['total_supply']:,.0f}\n\n"
             f"👥 Community:\n"
-            f"   Holders: {token_info['holders']:,}\n"
-            f"   Transactions: {token_info['transactions']:,}"
+            f"Holders: {token_info['holders']:,}\n"
+            f"Transactions: {token_info['transactions']:,}\n\n"
+            f"<code>{token_info['contract']}</code>\n"
         )
 
         mini_app_link = f"https://t.me/meme_scout_bot/memecoin_trade?startapp={contract_address}-{chain}"
@@ -106,7 +104,7 @@ async def tokeninfo(update: Update, context: CallbackContext) -> None:
         # Add the mini-app link to the response
         response += f"\n\n🚀 Trade this memecoin: [Open Mini-App]({mini_app_link})"
 
-        await update.message.reply_text(response)
+        await update.message.reply_text(response, parse_mode="HTML")
     except Exception as e:
         logger.error(f"Error fetching token info: {str(e)}")
         await update.message.reply_text(
