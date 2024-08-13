@@ -28,20 +28,11 @@ export default function Home() {
     fetchToken();
   }, [webApp]);
 
-  const fetchTokenInfo =  async (chain: string, address: string): Promise<Token | null> => {
-    const apiKey = process.env.NEXT_PUBLIC_DEXTOOLS_API_KEY as string
-    const apiUrl = `https://public-api.dextools.io/trial/v2/token/${chain}/${address}`;
+  const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
+    const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
 
     try {
-     const headers: HeadersInit = {
-        'accept': 'application/json',
-        'x-api-key': apiKey
-      };
-
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: headers
-      });
+      const response = await fetch(apiUrl);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
