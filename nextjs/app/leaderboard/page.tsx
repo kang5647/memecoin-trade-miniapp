@@ -20,6 +20,8 @@ const mockTraders = [
 
 export default function LeaderboardPage() {
   const webApp = useTelegramWebApp();
+  const searchParams = useSearchParams();
+  const symbol = searchParams.get('symbol');
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
@@ -33,11 +35,11 @@ export default function LeaderboardPage() {
           </p>
         )}
 
-        <h1 className="text-2xl font-bold mb-4 mt-8 text-center text-white">Memecoin Traders Leaderboard</h1>
+        <h1 className="text-2xl font-bold mb-4 mt-8 text-center text-white">Who traded {symbol ? `${symbol}` : ''}</h1>
         <div className="space-y-2 bg-white bg-opacity-70 backdrop-filter backdrop-blur-sm rounded-lg p-4">
           {mockTraders.map((trader) => (
             <div key={trader.address} className="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
-              <span className="font-mono text-sm">{truncateAddress(trader.address)}</span>
+              <span className="font-mono text-sm text-black">{truncateAddress(trader.address)}</span>
               <div className={`flex items-center ${trader.pl >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {trader.pl >= 0 ? <TrendingUp size={16} className="mr-1" /> : <TrendingDown size={16} className="mr-1" />}
                 <span className="font-semibold">{trader.pl.toFixed(2)}%</span>

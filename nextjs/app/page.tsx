@@ -5,27 +5,87 @@ import Link from 'next/link'
 import SwapWidget from '../components/SwapWidget'
 import { useTelegramWebApp } from "../hooks/useTelegramWebApp"
 import { AppKit } from '../context'
+import { Token } from '../types/telegram-webapp'
 
 export default function Home() {
   const webApp = useTelegramWebApp();
   const [contractAddress, setContractAddress] = useState('');
+  const [chain, setChain] = useState('');
+  const [token, setToken] = useState<Token | null>(null);
 
    useEffect(() => {
-    if (webApp) {
-      console.log('Telegram WebApp parameters:', webApp.initData);
-      
-      // Extract the start_param (contract address) from initDataUnsafe
-      if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
-        setContractAddress(webApp.initDataUnsafe.start_param);
+    const fetchToken = async () => {
+      if (webApp) {
+        console.log('Telegram WebApp parameters:', webApp.initData);
+        
+        // Extract the start_param (contract address) from initDataUnsafe
+        if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
+          const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
+          const newToken = await fetchTokenInfo(chain, contractAddress);
+          setToken(newToken);
+        }
       }
-    }
+    };
+    fetchToken();
   }, [webApp]);
+
+  const fetchTokenInfo =  async (chain: string, address: string): Promise<Token | null> => {
+    const apiKey = process.env.NEXT_PUBLIC_DEXTOOLS_API_KEY as string
+    const apiUrl = `https://public-api.dextools.io/trial/v2/token/${chain}/${address}`;
+
+    try {
+     const headers: HeadersInit = {
+        'accept': 'application/json',
+        'x-api-key': apiKey
+      };
+
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: headers
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.data && data.data.token) {
+        const tokenData = data.data;
+        const newToken: Token = {
+          address: tokenData.address,
+          name: tokenData.name,
+          symbol: tokenData.symbol,
+          decimals: tokenData.decimals,
+          chainId: getChainId(chain), // You'll need to implement this function
+          logoURI: tokenData.logo || '' 
+        };
+
+        return newToken;
+      } else {
+        throw new Error('Token data not found in API response');
+      }
+    } catch (error) {
+      console.error("Error fetching token info:", error);
+      return null;
+    }
+  };
+
+  // Helper function to get chainId from chain name
+  const getChainId = (chain: string): number => {
+    const chainMap: { [key: string]: number } = {
+      'ethereum': 1,
+      'base': 8453,
+
+    };
+    return chainMap[chain.toLowerCase()] || 8453; 
+  };
 
   return (
     <AppKit>
       <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
         <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 relative">
-          <Link  href={`/leaderboard?contractAddress=${contractAddress}`}  className="absolute top-4 right-4 bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors">
+          <Link  href={`/leaderboard?symbol=${token?.symbol}`}  className="absolute top-4 right-4 bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors">
             Leaderboard
           </Link>
           {webApp?.initDataUnsafe.user && (
@@ -33,16 +93,13 @@ export default function Home() {
               Hello, {webApp.initDataUnsafe.user.first_name}!
             </p>
           )}
-          {contractAddress && (
-            <p className="text-center mb-4 text-white">
-              Contract Address: {contractAddress}
-            </p>
-          )}
           <div className="mb-6 flex justify-center mt-8">
             <w3m-button/>
           </div>
           <div className="flex justify-center">
-            <SwapWidget />
+            <SwapWidget 
+              token={token}
+            />
           </div>
         </div>
       </main>
