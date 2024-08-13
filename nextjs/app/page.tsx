@@ -19,6 +19,7 @@ export default function Home() {
         // Extract the start_param (contract address) from initDataUnsafe
         if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
           const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
+          console.log('Contract address:', contractAddress, 'Chain:', chain);
           const newToken = await fetchTokenInfo(chain, contractAddress);
           console.log('Token info:', newToken);
           setToken(newToken);
@@ -27,6 +28,7 @@ export default function Home() {
     };
     fetchToken();
   }, [webApp]);
+
 
   const fetchTokenInfo = async (chain: string, address: string): Promise<Token | null> => {
     const apiUrl = `/api/dextools-proxy?chain=${chain}&address=${address}`;
