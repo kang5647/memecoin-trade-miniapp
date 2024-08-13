@@ -9,8 +9,6 @@ import { Token } from '../types/telegram-webapp'
 
 export default function Home() {
   const webApp = useTelegramWebApp();
-  const [contractAddress, setContractAddress] = useState('');
-  const [chain, setChain] = useState('');
   const [token, setToken] = useState<Token | null>(null);
 
    useEffect(() => {
@@ -22,6 +20,7 @@ export default function Home() {
         if (webApp.initDataUnsafe && webApp.initDataUnsafe.start_param) {
           const [contractAddress, chain] = webApp.initDataUnsafe.start_param.split('-');
           const newToken = await fetchTokenInfo(chain, contractAddress);
+          console.log('Token info:', newToken);
           setToken(newToken);
         }
       }

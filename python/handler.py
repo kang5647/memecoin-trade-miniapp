@@ -17,7 +17,7 @@ DEXTOOLS_API_BASE_URL = "https://public-api.dextools.io/trial/v2/token"
 DEXTOOLS_API_KEY = os.getenv("DEXTOOLS_API_KEY")
 
 
-async def get_token_info(contract_address: str, chain: str) -> dict:
+async def get_token_info(chain: str, contract_address: str) -> dict:
     """
     Get comprehensive token information from Dextools API.
     """
@@ -76,8 +76,8 @@ async def tokeninfo(update: Update, context: CallbackContext) -> None:
         )
         return
 
-    contract_address = context.args[0]
-    chain = context.args[1]
+    chain = context.args[0]
+    contract_address = context.args[1]
 
     await update.message.reply_text(f"Fetching token information...")
     try:

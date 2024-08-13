@@ -10,7 +10,7 @@ import tokenListJson from '../token_list.json';
 
 
 function SwapWidget({ token } : { token: Token | null }) {
-  const { isConnected, address } = useWeb3ModalAccount()
+  const { isConnected } = useWeb3ModalAccount()
   const { walletProvider } = useWeb3ModalProvider()
   const [tokenList, setTokenList] = useState<Token[]>([]);
   const [defaultTokenOut, setDefaultTokenOut] = useState('');
