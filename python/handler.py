@@ -100,7 +100,9 @@ async def tokeninfo(update: Update, context: CallbackContext) -> None:
         mini_app_link = f"https://t.me/meme_scout_bot/memecoin_trade?startapp={contract_address}-{chain}"
 
         # Add the mini-app link to the response
-        response += f"\n\n🚀 Trade this memecoin: [Open Mini-App]({mini_app_link})"
+        response += (
+            f'🚀 Trade this memecoin: <a href="{mini_app_link}">Open Mini-App</a>'
+        )
 
         await update.message.reply_text(response, parse_mode="HTML")
     except Exception as e:
