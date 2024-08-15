@@ -1,27 +1,29 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import {  BrowserProvider  } from 'ethers'
-import { Widget } from '@kyberswap/widgets'
-import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react'
-import { Token } from '../types/telegram-webapp'
+import { useState, useEffect } from "react";
+import { providers } from "ethers-v5";
+import { Widget } from "@kyberswap/widgets";
+import {
+  useWeb3ModalProvider,
+  useWeb3ModalAccount,
+} from "@web3modal/ethers/react";
+import { Token } from "../types/telegram-webapp";
 
-import tokenListJson from '../token_list.json';
+import tokenListJson from "../token_list.json";
 
-
-function SwapWidget({ token } : { token: Token | null }) {
-  const { isConnected } = useWeb3ModalAccount()
-  const { walletProvider } = useWeb3ModalProvider()
+function SwapWidget({ token }: { token: Token | null }) {
+  const { isConnected } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
   const [tokenList, setTokenList] = useState<Token[]>([]);
-  const [defaultTokenOut, setDefaultTokenOut] = useState('');
+  const [defaultTokenOut, setDefaultTokenOut] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [provider, setProvider] = useState<BrowserProvider | null>(null);
+  const [provider, setProvider] = useState<providers.Web3Provider | null>(null);
 
   useEffect(() => {
     const initializeProvider = async () => {
       if (isConnected && walletProvider) {
         try {
-          const newProvider = new BrowserProvider(walletProvider);
+          const newProvider = new providers.Web3Provider(walletProvider);
           console.log("Provider object:", newProvider);
           setProvider(newProvider);
           const network = await newProvider.getNetwork();
@@ -35,10 +37,10 @@ function SwapWidget({ token } : { token: Token | null }) {
         }
       } else {
         console.log("Wallet not connected or provider not available");
-        
+        setProvider(null); // Ensure provider is null if conditions are not met
       }
-    }
-   initializeProvider();
+    };
+    initializeProvider();
   }, [isConnected, walletProvider]);
 
   useEffect(() => {
@@ -48,9 +50,9 @@ function SwapWidget({ token } : { token: Token | null }) {
       const initialTokens = Object.values(tokenListJson.tokens);
       setTokenList(initialTokens);
 
-      if(token){
+      if (token) {
         setDefaultTokenOut(token.address);
-        setTokenList(prevList => {
+        setTokenList((prevList) => {
           const updatedList = [...prevList, token];
           console.log("Updated token list:", updatedList);
           return updatedList;
@@ -63,24 +65,24 @@ function SwapWidget({ token } : { token: Token | null }) {
   }, [token]);
 
   if (!isConnected) {
-    return <div>Please connect your wallet</div>
+    return <div>Please connect your wallet</div>;
   }
 
-  if (!walletProvider || isLoading) {
-    return <div>Loading...</div>
+  if (!provider || isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
-      <Widget
-        client="Memecoin Fiesta"
-        enableDexes="kyberswap-elastic,uniswapv3,uniswap,uniswapv2"
-        provider={provider}
-        title={<div>Swap Memecoin</div>}
-        width={300}
-        tokenList={tokenList}
-        defaultTokenOut={defaultTokenOut}
-      />
-  )
+    <Widget
+      client="Memecoin Fiesta"
+      enableDexes="kyberswap-elastic,uniswapv3,uniswap,uniswapv2"
+      provider={provider}
+      title={<div>Swap Memecoin</div>}
+      width={300}
+      tokenList={tokenList}
+      defaultTokenOut={defaultTokenOut}
+    />
+  );
 }
 
-export default SwapWidget
+export default SwapWidget;
