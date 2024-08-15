@@ -134,7 +134,7 @@ export default function Home() {
             Leaderboard
           </Link>
           {webApp?.initDataUnsafe.user && (
-            <p className="text-center mb-4 text-white mt-8">
+            <p className="text-center mb-4 text-white mt-8 px-16 truncate">
               Hello, {webApp.initDataUnsafe.user.first_name}!
             </p>
           )}

@@ -72,15 +72,35 @@ function SwapWidget({ token }: { token: Token | null }) {
     return <div>Loading...</div>;
   }
 
+  const darkTheme = {
+    text: "#ffffff", // White text for high contrast
+    subText: "#a0aec0", // Soft gray for secondary text
+    primary: "#1a202c", // Very dark blue-gray for primary background
+    dialog: "#2d3748", // Slightly lighter dark blue-gray for dialogs
+    secondary: "#4a5568", // Medium gray for secondary elements
+    interactive: "#4299e1", // Bright blue for interactive elements
+    stroke: "#718096", // Medium-light gray for borders
+    accent: "#ed64a6", // Bright pink for accents
+    success: "#48bb78", // Green for success states
+    warning: "#ecc94b", // Yellow for warnings
+    error: "#f56565", // Red for errors
+    fontFamily: "Open Sans", // Modern, clean font
+    borderRadius: "12px", // Rounded corners for containers
+    buttonRadius: "8px", // Slightly less rounded for buttons
+    boxShadow:
+      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)", // Subtle shadow for depth
+  };
+
   return (
     <Widget
       client="Memecoin Fiesta"
       enableDexes="kyberswap-elastic,uniswapv3,uniswap,uniswapv2"
       provider={provider}
       title={<div>Swap Memecoin</div>}
-      width={300}
+      width={310}
       tokenList={tokenList}
       defaultTokenOut={defaultTokenOut}
+      theme={darkTheme}
     />
   );
 }
