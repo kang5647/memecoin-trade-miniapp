@@ -127,18 +127,20 @@ export default function Home() {
     <AppKit>
       <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
         <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 relative">
-          <Link
-            href={`/leaderboard?symbol=${token?.symbol}`}
-            className="absolute top-4 right-4 bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors"
-          >
-            Leaderboard
-          </Link>
-          {webApp?.initDataUnsafe.user && (
-            <p className="text-center mb-4 text-white mt-8 px-16 truncate">
-              Hello, {webApp.initDataUnsafe.user.first_name}!
-            </p>
-          )}
-          <div className="mb-6 flex justify-center mt-8">
+          <div className="flex justify-between items-center mb-4">
+            {webApp?.initDataUnsafe.user && (
+              <p className="text-white text-sm truncate flex-grow mr-2">
+                Hello, {webApp.initDataUnsafe.user.first_name}!
+              </p>
+            )}
+            <Link
+              href={`/leaderboard?symbol=${token?.symbol}`}
+              className="bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors whitespace-nowrap"
+            >
+              Leaderboard
+            </Link>
+          </div>
+          <div className="mb-6 flex justify-center mt-4">
             <w3m-button />
           </div>
           <div className="flex justify-center">
