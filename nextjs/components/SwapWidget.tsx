@@ -97,7 +97,7 @@ function SwapWidget({ token }: { token: Token | null }) {
       enableDexes="kyberswap-elastic,uniswapv3,uniswap,uniswapv2"
       provider={provider}
       title={<div>Swap Memecoin</div>}
-      width={310}
+      width={315}
       tokenList={tokenList}
       defaultTokenOut={defaultTokenOut}
       theme={darkTheme}

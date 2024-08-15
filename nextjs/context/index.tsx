@@ -65,7 +65,7 @@ createWeb3Modal({
   projectId,
   enableAnalytics: true,
   themeVariables: {
-    "--w3m-accent": "#000000",
+    "--w3m-accent": "#8B5CF6",
   },
   enableOnramp: true,
 });
