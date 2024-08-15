@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import SwapWidget from "../components/SwapWidget";
 import { useTelegramWebApp } from "../hooks/useTelegramWebApp";
 import { AppKit } from "../context";
@@ -123,29 +124,39 @@ export default function Home() {
     return chainMap[chain.toLowerCase()] || 8453;
   };
 
+  const router = useRouter();
+  const isLeaderboardPage = router.pathname === "/leaderboard";
   return (
     <AppKit>
       <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-orange-100">
         <div className="w-full max-w-md bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 relative">
-          <div className="flex justify-between items-center mb-4">
+          <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-t-lg">
             {webApp?.initDataUnsafe.user && (
-              <p className="text-white text-sm truncate flex-grow mr-2">
+              <p className="text-white text-sm truncate text-center">
                 Hello, {webApp.initDataUnsafe.user.first_name}!
               </p>
             )}
+          </div>
+          <div className="mt-12 mb-4 flex justify-end">
             <Link
-              href={`/leaderboard?symbol=${token?.symbol}`}
-              className="bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors whitespace-nowrap"
+              href={
+                isLeaderboardPage ? "/" : `/leaderboard?symbol=${token?.symbol}`
+              }
+              className="bg-white text-indigo-600 text-sm font-bold py-2 px-4 rounded hover:bg-indigo-100 transition-colors"
             >
-              Leaderboard
+              {isLeaderboardPage ? "Back to Swap" : "Leaderboard"}
             </Link>
           </div>
-          <div className="mb-6 flex justify-center mt-4">
-            <w3m-button />
-          </div>
-          <div className="flex justify-center">
-            <SwapWidget token={token} />
-          </div>
+          {!isLeaderboardPage && (
+            <>
+              <div className="mb-6 flex justify-center">
+                <w3m-button />
+              </div>
+              <div className="flex justify-center">
+                <SwapWidget token={token} />
+              </div>
+            </>
+          )}
         </div>
       </main>
     </AppKit>
