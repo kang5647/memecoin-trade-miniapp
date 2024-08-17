@@ -16,6 +16,24 @@ logger = logging.getLogger(__name__)
 DEXTOOLS_API_BASE_URL = "https://public-api.dextools.io/trial/v2/token"
 DEXTOOLS_API_KEY = os.getenv("DEXTOOLS_API_KEY")
 
+async def start(update: Update, context: CallbackContext) -> None:
+    welcome_message = (
+        "🎉 Welcome to Memecoin Fiesta! 🎉\n\n"
+        "Get ready to dive into the wild world of memecoins, right here in Telegram!\n\n"
+        "🚀 What we offer:\n"
+        "• Memecoin swaps (experimental)\n"
+        "• Token information lookup\n\n"
+        "⚠️ Important Notes:\n"
+        "1. This is an MVP (Minimum Viable Product) in progress.\n"
+        "2. The swap feature is highly experimental. Use at your own risk!\n"
+        "3. Token info might be occasionally unavailable due to API limitations.\n\n"
+        "🛠 If something doesn't work, give it another shot! We're constantly improving.\n\n"
+        "Ready to start? Try these commands:\n"
+        "/token [chain] [address] - Get token info\n"
+        "Let's make memecoin trading fun! 🐶🚀🌙"
+    )
+    
+    await update.message.reply_text(welcome_message)
 
 async def get_token_info(chain: str, contract_address: str) -> dict:
     """
