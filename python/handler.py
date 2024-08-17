@@ -18,22 +18,22 @@ DEXTOOLS_API_KEY = os.getenv("DEXTOOLS_API_KEY")
 
 async def start(update: Update, context: CallbackContext) -> None:
     welcome_message = (
-        "🎉 Welcome to Memecoin Fiesta! 🎉\n\n"
+        "🎉 Welcome to <b>Memecoin Fiesta</b>! 🎉\n\n"
         "Get ready to dive into the wild world of memecoins, right here in Telegram!\n\n"
         "🚀 What we offer:\n"
-        "• Memecoin swaps (experimental)\n"
+        "• Memecoin swaps (<b>experimental</b>)\n"
         "• Token information lookup\n\n"
-        "⚠️ Important Notes:\n"
-        "1. This is an MVP (Minimum Viable Product) in progress.\n"
-        "2. The swap feature is highly experimental. Use at your own risk!\n"
+        "⚠️ <b>Important Notes:</b>\n"
+        "1. This is an <b>MVP</b> (Minimum Viable Product) in progress.\n"
+        "2. The swap feature is <b>highly experimental</b>. Use at your own risk!\n"
         "3. Token info might be occasionally unavailable due to API limitations.\n\n"
         "🛠 If something doesn't work, give it another shot! We're constantly improving.\n\n"
-        "Ready to start? Try these commands:\n"
-        "/token [chain] [address] - Get token info\n"
+        "Ready to start? Try this command:\n"
+        "<code>/token [chain] [address]</code> - Get token info\n\n"
         "Let's make memecoin trading fun! 🐶🚀🌙"
     )
     
-    await update.message.reply_text(welcome_message)
+    await update.message.reply_text(welcome_message, parse_mode='HTML')
 
 async def get_token_info(chain: str, contract_address: str) -> dict:
     """
